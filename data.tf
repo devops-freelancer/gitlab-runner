@@ -17,39 +17,44 @@ data "aws_vpc" "existing_vpc" {
     values = ["vpc-1234567890abcdef0"]  #dummy vpc-id replace with yuor correct one
   }
 }
-}
-
 #------------------------------------------------------
 # exsiting  private subnets in vpc 
 #------------------------------------------------------
 data "aws_subnets" "vpc-exisitng-private-subnets" {
-vpc-id = data.aws_vpc.existing_vpc.id
+filter {
+    name   = "vpc-id"
+    values = [dat.aws_vpc.existing_vpc]
+  }
 }
 
 #------------------------------------------------------
 # exisitng enterprise subnet in vpc
 #------------------------------------------------------
 data "aws_subnets" "vpc-exisitng-enterprise-subnets" {
-vpc-id = data.aws_vpc.existing_vpc.id
+filter {
+    name   = "vpc-id"
+    values = [dat.aws_vpc.existing_vpc]
+  }
 }
 
 #------------------------------------------------------
 # exisitng public subnet in vpc
 #------------------------------------------------------
 data "aws_subnets" "vpc-exisitng-public-subnets" {
-vpc-id = data.aws_vpc.existing_vpc.id
+filter {
+    name   = "vpc-id"
+    values = [dat.aws_vpc.existing_vpc]
+  }
 }
 
 #------------------------------------------------------
 # security hardern AMI 
 #------------------------------------------------------
 data "aws_ami" "gloden-ami" {
-
-}
-
-#------------------------------------------------------
-#  
-#------------------------------------------------------
-data "" "" {
-
+  most_recent = true
+  owners      = ["amazon"]
+   filter {
+    name   = "name"
+    values = [var.ami_name]
+  }
 }
